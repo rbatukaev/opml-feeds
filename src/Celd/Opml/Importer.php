@@ -42,11 +42,7 @@ class Importer {
         $encoder = new XmlEncoder();
         $data = $encoder->decode($data, 'xml'); // Symfony2 serializer decode function wants a format that is never used ;)
 
-        if(!isset($data['head']['title'])) {
-            throw new \UnexpectedValueException('No head->title in data.');
-        }
-
-        $this->feedList->setTitle($data['head']['title']);
+        $this->feedList->setTitle($data['head']['title'] ?? '');
 
         if(!isset($data['body']['outline']) || !is_array($data['body']['outline'])) {
             throw new \UnexpectedValueException('No outlines.');
